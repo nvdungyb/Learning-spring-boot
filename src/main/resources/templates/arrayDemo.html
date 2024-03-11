@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Array Iteration</title>
+</head>
+<body>
+
+<p>
+    Print the length of the array: <span th:text="${arrays.length}"></span>
+</p>
+
+    <div>
+        <ol>
+            <li th:text="${arrays[0]}"></li>
+            <li th:text="${arrays[1]}"></li>
+            <li th:text="${arrays[2]}"></li>
+            <li th:text="${arrays[3]}"></li>
+            <li th:text="${arrays[4]}"></li>
+            <li th:text="${arrays[5]}"></li>
+            <li th:text="${arrays[6]}"></li>
+        </ol>
+    </div>
+
+    <ul th:each="planet : ${arrays}">
+        <li th:text="${planet}"></li>
+    </ul>
+
+</body>
+</html>
