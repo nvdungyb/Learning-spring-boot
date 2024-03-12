@@ -1,10 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Create new Emp</title>
 </head>
 <body>
-$END$
+<h2 th:text="${message}"></h2>
+<table class="table table-danger">
+    <tbody>
+    <form action="/create" method="post" th:object="${employee}">
+        <input type="hidden" th:field="*{id}">
+        <tr>
+            <td>First Name:</td>
+            <td>
+                <input type="text" name="firstName" th:field="*{firstName}" required>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Last Name</td>
+            <td>
+                <input type="text" name="lastName" th:field="*{lastName}" required>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Email</td>
+            <td>
+                <input type="email" name="email" th:field="*{email}" required>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit">Submit</button>
+            </td>
+        </tr>
+    </form>
+    </tbody>
+</table>
 </body>
 </html>

@@ -7,6 +7,9 @@
 <body>
 
 <p> List All Employees</p>
+
+<!--<p th:if="${message != null}" class="alert alert-success text-center"> [[${message}]]</p>-->
+<a th:href="@{/new-employee}">Create New Employee</a>
 <table class="table table-responsive">
     <tr>
         <th>Id</th>
@@ -15,15 +18,15 @@
         <th>Email</th>
     </tr>
     <tbody>
-        <tr th:each="emp : ${employees}">
-            <td th:text="${empStat.index}"></td>
-            <td th:text="${emp.firstName != null ? emp.firstName : ''}"></td>
-            <td th:text="${emp.lastName != null ? emp.lastName : ''}"></td>
-            <td th:text="${emp.email}"></td>
-            <td><a th:href="@{/delete/{id} (id = ${emp.id})}" >Delete</a></td>
-        </tr>
+    <tr th:each="emp : ${employees}" th:object="${emp}">
+        <td th:text="${emp.id}"></td>
+        <td th:text="${emp.firstName != null ? emp.firstName : ''}"></td>
+        <td th:text="${emp.lastName != null ? emp.lastName : ''}"></td>
+        <td th:text="${emp.email}"></td>
+        <td><a th:href="@{/delete/{id} (id = ${emp.id})}">Delete</a></td>
+        <td><a th:href="@{/change/{id} (id = ${emp.id})}">Change</a></td>
+    </tr>
     </tbody>
-
 </table>
 </body>
 </html>
