@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Employees</title>
+</head>
+<body>
+
+<p> List All Employees</p>
+<table class="table table-responsive">
+    <tr>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+    </tr>
+    <tbody>
+        <tr th:each="emp : ${employees}">
+            <td th:text="${empStat.index}"></td>
+            <td th:text="${emp.firstName != null ? emp.firstName : ''}"></td>
+            <td th:text="${emp.lastName != null ? emp.lastName : ''}"></td>
+            <td th:text="${emp.email}"></td>
+            <td><a th:href="@{/delete/{id} (id = ${emp.id})}" >Delete</a></td>
+        </tr>
+    </tbody>
+
+</table>
+</body>
+</html>
