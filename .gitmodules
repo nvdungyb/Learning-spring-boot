@@ -1,0 +1,3 @@
+[submodule "spring-boot-0-configuration-bean"]
+	path = spring-boot-0-configuration-bean
+	url = https://github.com/nvdungyb/Learning-spring-boot.git

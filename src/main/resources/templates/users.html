@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List All Users</title>
+</head>
+<body>
+<p> All the users</p>
+<table class="table table-hover">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Gender</th>
+        <th>Change</th>
+    </tr>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${userStat.index}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.role}"></td>
+        <td th:text="${user.gender}"></td>
+        <td>
+            <a th:if="${user.role} == 'ADMIN'" th:href="@{/}"> VIEW </a>
+            <a th:if="${user.role} == 'USER' and ${user.gender} == 'M'" th:href="@{/}"> UPDATE </a>
+            <a th:if="${user.role} == 'USER'" th:href="@{/}"> DELETE </a>
+            <a th:unless="${user.role} == 'ADMIN'" th:href="@{/array}"> SEE </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
