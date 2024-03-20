@@ -27,6 +27,7 @@ public abstract class DatabaseConnector {
         return url;
     }
 
+
     public void setUrl(String url) {
         this.url = url;
     }

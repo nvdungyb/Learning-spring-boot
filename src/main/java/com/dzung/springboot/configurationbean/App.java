@@ -14,4 +14,5 @@ public class App {
         DatabaseConnector mysqlConnector = context.getBean(MysqlConnector.class);
         System.out.println(mysqlConnector.connect());
     }
+
 }

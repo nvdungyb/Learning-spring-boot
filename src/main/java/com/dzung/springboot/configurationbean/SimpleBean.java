@@ -18,4 +18,5 @@ public class SimpleBean {
     public String toString() {
         return "SimpleBean [userName=" + userName + "]";
     }
+
 }
