@@ -1,33 +1,44 @@
 package com.dzungyb.learning_spring_boot.controller;
 
+import com.dzungyb.learning_spring_boot.dto.request.UserCreationRequest;
+import com.dzungyb.learning_spring_boot.dto.request.UserUpdateRequest;
 import com.dzungyb.learning_spring_boot.model.User;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.dzungyb.learning_spring_boot.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/users")
 public class UserController {
+    @Autowired
+    private UserService userService;
 
-    @GetMapping("/users")
-    public String listUsers(Model model) {
-        List<User> ls = new ArrayList<>();
+    @PostMapping
+    User createUser(@RequestBody UserCreationRequest request) {
+        return userService.createUser(request);
+    }
 
-        User ramesh = new User("ramesh", "ramesh@gmail.com", "ADMIN", "M");
-        User admin = new User("admin", "admin@gmail.com", "ADMIN", "M");
-        User tampo = new User("tampo", "tampo@gmail.com", "USER", "M");
-        User meena = new User("meena", "meena@gmail.com", "USER", "F");
+    @GetMapping
+    List<User> getUsers() {
+        return userService.getUsers();
+    }
 
-        ls.add(ramesh);
-        ls.add(admin);
-        ls.add(tampo);
-        ls.add(meena);
+    @GetMapping("/{userId}")
+    User getUser(@PathVariable String userId) {
+        return userService.getUser(userId);
+    }
 
-        model.addAttribute("users", ls);
+    @PutMapping("/{userId}")
+    User updateUser(@PathVariable String userId, @RequestBody UserUpdateRequest request) {
+        return userService.updateUser(userId, request);
+    }
 
-        return "users";
+    @DeleteMapping("/{userId}")
+    String deleteUser(@PathVariable String userId) {
+        userService.deleteUser(userId);
+        return "User has been deleted";
     }
 
 }

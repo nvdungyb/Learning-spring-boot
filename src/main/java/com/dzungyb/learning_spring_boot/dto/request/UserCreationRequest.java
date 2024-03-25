@@ -1,30 +1,13 @@
-package com.dzungyb.learning_spring_boot.model;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+package com.dzungyb.learning_spring_boot.dto.request;
 
 import java.time.LocalDate;
 
-@Entity
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+public class UserCreationRequest {
     private String userName;
     private String password;
     private String firstName;
     private String lastName;
     private LocalDate dob;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getUserName() {
         return userName;
@@ -65,6 +48,4 @@ public class User {
     public void setDob(LocalDate dob) {
         this.dob = dob;
     }
-
-
 }
