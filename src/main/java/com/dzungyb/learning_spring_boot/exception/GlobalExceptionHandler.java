@@ -1,6 +1,7 @@
 package com.dzungyb.learning_spring_boot.exception;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -13,5 +14,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(runtimeException.getMessage());
     }
 
-   
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    ResponseEntity<String> handlingValidationException(MethodArgumentNotValidException exception) {
+        return ResponseEntity.badRequest().body(exception.getFieldError().getDefaultMessage());
+    }
+
 }

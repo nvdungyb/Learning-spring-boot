@@ -1,9 +1,14 @@
 package com.dzungyb.learning_spring_boot.dto.request;
 
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 public class UserCreationRequest {
+    @Size(min = 3, message = "Username must be at least 3 characters long")
     private String userName;
+
+    @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
     private String firstName;
     private String lastName;
@@ -49,3 +54,6 @@ public class UserCreationRequest {
         this.dob = dob;
     }
 }
+
+// @Email, @NotBlank, @NotEmpty, @NotNull, @Null, @Pattern, @Size, @Valid, @Validated
+// Tự tạo annotation cho riêng mình.
