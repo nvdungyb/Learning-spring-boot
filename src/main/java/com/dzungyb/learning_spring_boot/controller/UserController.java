@@ -1,5 +1,6 @@
 package com.dzungyb.learning_spring_boot.controller;
 
+import com.dzungyb.learning_spring_boot.dto.request.ApiResponse;
 import com.dzungyb.learning_spring_boot.dto.request.UserCreationRequest;
 import com.dzungyb.learning_spring_boot.dto.request.UserUpdateRequest;
 import com.dzungyb.learning_spring_boot.model.User;
@@ -17,8 +18,11 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    User createUser(@RequestBody @Valid UserCreationRequest request) {
-        return userService.createUser(request);
+    ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
+        ApiResponse<User> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(userService.createUser(request));
+
+        return apiResponse;
     }
 
     @GetMapping
