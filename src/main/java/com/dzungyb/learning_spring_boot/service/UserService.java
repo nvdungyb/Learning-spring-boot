@@ -2,6 +2,8 @@ package com.dzungyb.learning_spring_boot.service;
 
 import com.dzungyb.learning_spring_boot.dto.request.UserCreationRequest;
 import com.dzungyb.learning_spring_boot.dto.request.UserUpdateRequest;
+import com.dzungyb.learning_spring_boot.exception.AppException;
+import com.dzungyb.learning_spring_boot.exception.ErrorCode;
 import com.dzungyb.learning_spring_boot.model.User;
 import com.dzungyb.learning_spring_boot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ public class UserService {
         User user = new User();
 
         if (userRepository.existsByUserName(request.getUserName())) {
-            throw new RuntimeException("UserName already exits");
+            throw new AppException(ErrorCode.USER_EXISTED);
         }
 
         user.setUserName(request.getUserName());
