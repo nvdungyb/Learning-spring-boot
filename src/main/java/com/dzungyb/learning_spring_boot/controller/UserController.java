@@ -3,9 +3,13 @@ package com.dzungyb.learning_spring_boot.controller;
 import com.dzungyb.learning_spring_boot.dto.request.ApiResponse;
 import com.dzungyb.learning_spring_boot.dto.request.UserCreationRequest;
 import com.dzungyb.learning_spring_boot.dto.request.UserUpdateRequest;
-import com.dzungyb.learning_spring_boot.model.User;
+import com.dzungyb.learning_spring_boot.dto.response.UserResponse;
+import com.dzungyb.learning_spring_boot.entity.User;
 import com.dzungyb.learning_spring_boot.service.UserService;
 import jakarta.validation.Valid;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +17,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    private UserService userService;
+    UserService userService;
 
     @PostMapping
     ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
@@ -26,17 +31,17 @@ public class UserController {
     }
 
     @GetMapping
-    List<User> getUsers() {
+    List<UserResponse> getUsers() {
         return userService.getUsers();
     }
 
     @GetMapping("/{userId}")
-    User getUser(@PathVariable String userId) {
+    UserResponse getUser(@PathVariable String userId) {
         return userService.getUser(userId);
     }
 
     @PutMapping("/{userId}")
-    User updateUser(@PathVariable String userId, @RequestBody UserUpdateRequest request) {
+    UserResponse updateUser(@PathVariable String userId, @RequestBody UserUpdateRequest request) {
         return userService.updateUser(userId, request);
     }
 
@@ -47,3 +52,9 @@ public class UserController {
     }
 
 }
+
+/*
+1) @RequiredArgsConstructor: is a  Lombok annotation that generates constructors for all final and none null fields.
+2) @FieldDefaults: is a Lombok annotation that allows you to specify the default access level for fields in the class.
+
+ */

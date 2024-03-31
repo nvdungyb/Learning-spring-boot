@@ -1,6 +1,6 @@
 package com.dzungyb.learning_spring_boot.repository;
 
-import com.dzungyb.learning_spring_boot.model.Employee;
+import com.dzungyb.learning_spring_boot.entity.Employee;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

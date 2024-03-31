@@ -1,17 +1,24 @@
 package com.dzungyb.learning_spring_boot.service;
 
-import com.dzungyb.learning_spring_boot.model.Employee;
+import com.dzungyb.learning_spring_boot.entity.Employee;
+import com.dzungyb.learning_spring_boot.entity.User;
 import com.dzungyb.learning_spring_boot.repository.EmployeeRepository;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
 @Service
+@Data
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class EmployeeService {
-    @Autowired
-    private EmployeeRepository employeeRepository;
+    EmployeeRepository employeeRepository;
 
     public List<Employee> listAllEmployees() {
         return (List<Employee>) employeeRepository.findAll();
