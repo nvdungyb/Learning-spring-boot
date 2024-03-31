@@ -1,4 +1,4 @@
-package com.dzungyb.learning_spring_boot.model;
+package com.dzungyb.learning_spring_boot.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
