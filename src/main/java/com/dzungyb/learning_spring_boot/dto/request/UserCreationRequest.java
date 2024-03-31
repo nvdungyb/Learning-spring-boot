@@ -1,59 +1,35 @@
 package com.dzungyb.learning_spring_boot.dto.request;
 
 import jakarta.validation.constraints.Size;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserCreationRequest {
     @Size(min = 3, message = "USERNAME_INVALID")
     private String userName;
 
     @Size(min = 8, message = "PASSWORD_INVALID")
-    private String password;
-    private String firstName;
-    private String lastName;
-    private LocalDate dob;
+    String password;
+    String firstName;
+    String lastName;
+    LocalDate dob;
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public LocalDate getDob() {
-        return dob;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
 }
 
 // @Email, @NotBlank, @NotEmpty, @NotNull, @Null, @Pattern, @Size, @Valid, @Validated
 // Tự tạo annotation cho riêng mình.
+
+/* Lombok
+: Mặc định sẽ generate các phương thức getter and setter cho các field private.
+_ Dùng @Data -> tự động generate getter, setter, constructor, toString, equals, hashCode.
+
+_
+
+ */
