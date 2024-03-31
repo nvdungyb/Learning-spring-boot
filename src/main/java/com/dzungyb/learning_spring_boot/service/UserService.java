@@ -4,6 +4,7 @@ import com.dzungyb.learning_spring_boot.dto.request.UserCreationRequest;
 import com.dzungyb.learning_spring_boot.dto.request.UserUpdateRequest;
 import com.dzungyb.learning_spring_boot.exception.AppException;
 import com.dzungyb.learning_spring_boot.exception.ErrorCode;
+import com.dzungyb.learning_spring_boot.mapper.UserMapper;
 import com.dzungyb.learning_spring_boot.model.User;
 import com.dzungyb.learning_spring_boot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +17,15 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public User createUser(UserCreationRequest request) {
-        User user = new User();
+    @Autowired
+    private UserMapper userMapper;
 
+    public User createUser(UserCreationRequest request) {
         if (userRepository.existsByUserName(request.getUserName())) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
 
-        user.setUserName(request.getUserName());
-        user.setPassword(request.getPassword());
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setDob(request.getDob());
+        User user = userMapper.toUser(request);
 
         return userRepository.save(user);
     }
@@ -42,12 +40,7 @@ public class UserService {
 
     public User updateUser(String userId, UserUpdateRequest request) {
         User user = getUser(userId);
-
-        user.setUserName(request.getUserName());
-        user.setPassword(request.getPassword());
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setDob(request.getDob());
+        userMapper.updateUser(user, request);
 
         return userRepository.save(user);
     }
@@ -56,3 +49,8 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 }
+
+/* Lưu ý:
+_ Ở tầng service khi trả về dữ liệu cho tầng controller thì nên trả về dữ liệu đã được xử lý, không nên trả về dữ liệu trực tiếp từ repository.
+=> nên trả về dto khác vì ta có nhu cầu trả về object nhất định chứ không trả về toàn bộ entity.
+ */
