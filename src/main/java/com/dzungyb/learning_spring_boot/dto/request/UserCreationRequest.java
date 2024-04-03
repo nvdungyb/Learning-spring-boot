@@ -1,5 +1,6 @@
 package com.dzungyb.learning_spring_boot.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -19,6 +20,8 @@ public class UserCreationRequest {
     String password;
     String firstName;
     String lastName;
+
+    @JsonFormat(pattern = "dd-MM-yyyy")
     LocalDate dob;
 
 }

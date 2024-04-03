@@ -1,6 +1,6 @@
 package com.dzungyb.learning_spring_boot.controller;
 
-import com.dzungyb.learning_spring_boot.dto.request.ApiResponse;
+import com.dzungyb.learning_spring_boot.dto.response.ApiResponse;
 import com.dzungyb.learning_spring_boot.dto.request.UserCreationRequest;
 import com.dzungyb.learning_spring_boot.dto.request.UserUpdateRequest;
 import com.dzungyb.learning_spring_boot.dto.response.UserResponse;
@@ -10,7 +10,6 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

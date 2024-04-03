@@ -1,6 +1,6 @@
 package com.dzungyb.learning_spring_boot.exception;
 
-import com.dzungyb.learning_spring_boot.dto.request.ApiResponse;
+import com.dzungyb.learning_spring_boot.dto.response.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;

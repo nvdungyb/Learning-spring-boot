@@ -11,6 +11,8 @@ import com.dzungyb.learning_spring_boot.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +31,9 @@ public class UserService {
         }
 
         User user = userMapper.toUser(request);
+
+        PasswordEncoder passwordEncode = new BCryptPasswordEncoder(10);
+        user.setPassword(passwordEncode.encode(user.getPassword()));
 
         return userRepository.save(user);
     }

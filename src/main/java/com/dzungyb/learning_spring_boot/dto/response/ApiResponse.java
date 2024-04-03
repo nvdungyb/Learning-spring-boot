@@ -1,4 +1,4 @@
-package com.dzungyb.learning_spring_boot.dto.request;
+package com.dzungyb.learning_spring_boot.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
@@ -12,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 @JsonInclude(JsonInclude.Include.NON_NULL)      // Bỏ qua các trường null khi trả về response.
 public class ApiResponse<T> {
     private int code = 1000;
-    private String message;
+    private String message = "SUCCESS";
     private T result;
 
 }

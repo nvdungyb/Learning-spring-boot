@@ -6,6 +6,7 @@ public enum ErrorCode {
     PASSWORD_INVALID(1004, "Password must be at least 8 characters long"),
     INVALID_KEY(1001, "Invalid message key"),
     USER_NOT_FOUND(1005, "User not found"),
+    WRONG_USERNAME_PASSWORD(1006, "Username or password is incorrect"),
     ;
 
     private int code;
