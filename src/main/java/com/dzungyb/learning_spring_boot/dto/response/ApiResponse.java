@@ -11,10 +11,9 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)      // Bỏ qua các trường null khi trả về response.
 public class ApiResponse<T> {
-    private int code = 1000;
+    private int code = 200;
     private String message = "SUCCESS";
     private T result;
-
 }
 
 // Đây là response API chuẩn.

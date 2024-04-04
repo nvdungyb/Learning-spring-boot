@@ -7,6 +7,7 @@ public enum ErrorCode {
     INVALID_KEY(1001, "Invalid message key"),
     USER_NOT_FOUND(1005, "User not found"),
     WRONG_USERNAME_PASSWORD(1006, "Username or password is incorrect"),
+    UNAUTHENTICATED(1007, "Unauthenticated"),
     ;
 
     private int code;
