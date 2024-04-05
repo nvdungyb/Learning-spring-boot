@@ -22,6 +22,10 @@ public class LearningSpringBootApplication implements CommandLineRunner {
         System.out.println("Email: " + properties.getEmail());
         System.out.println("Password: " + properties.getPassword());
         System.out.println("username: " + properties.getUsername());
+        int id = 1;
+        for (String author : properties.getAuthors()) {
+            System.out.println("Author" + (id++) + ": " + author);
+        }
     }
 }
 
