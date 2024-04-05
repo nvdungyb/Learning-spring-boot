@@ -30,8 +30,11 @@ public class UserController {
     }
 
     @GetMapping
-    List<UserResponse> getUsers() {
-        return userService.getUsers();
+    ApiResponse<List<UserResponse>> getUsers() {
+        return ApiResponse.<List<UserResponse>>builder()
+                .result(userService.getUsers())
+                .code(200)
+                .build();
     }
 
     @GetMapping("/{userId}")

@@ -8,19 +8,17 @@ import com.dzungyb.learning_spring_boot.dto.response.AuthenticationResponse;
 import com.dzungyb.learning_spring_boot.service.AuthenticationService;
 import com.nimbusds.jose.JOSEException;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("/auth")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
-    @GetMapping("/token")
+    @PostMapping("/token")
     public ApiResponse<AuthenticationResponse> login(@RequestBody AuthenticationRequest loginRequest) throws Throwable {
         ApiResponse<AuthenticationResponse> apiResponse = new ApiResponse<>();
 
