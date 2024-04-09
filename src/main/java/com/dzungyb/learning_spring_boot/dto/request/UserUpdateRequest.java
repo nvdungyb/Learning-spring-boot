@@ -1,8 +1,12 @@
 package com.dzungyb.learning_spring_boot.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.DateFormat;
 import java.time.LocalDate;
 
 @Data
@@ -15,6 +19,8 @@ public class UserUpdateRequest {
     String password;
     String firstName;
     String lastName;
+
+    @JsonFormat(pattern = "dd-MM-yyyy")
     LocalDate dob;
 
 }
