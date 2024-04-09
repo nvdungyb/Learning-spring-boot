@@ -5,6 +5,7 @@ import com.dzungyb.learning_spring_boot.dto.request.UserCreationRequest;
 import com.dzungyb.learning_spring_boot.dto.request.UserUpdateRequest;
 import com.dzungyb.learning_spring_boot.dto.response.UserResponse;
 import com.dzungyb.learning_spring_boot.entity.User;
+import com.dzungyb.learning_spring_boot.exception.ErrorCode;
 import com.dzungyb.learning_spring_boot.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -24,9 +25,12 @@ public class UserController {
     @PostMapping
     ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
         ApiResponse<User> apiResponse = new ApiResponse<>();
-        apiResponse.setResult(userService.createUser(request));
 
-        return apiResponse;
+        return apiResponse.<User>builder()
+                .code(201)
+                .message("Create user successfully!")
+                .result(userService.createUser(request))
+                .build();
     }
 
     @GetMapping
@@ -38,19 +42,37 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    UserResponse getUser(@PathVariable String userId) {
-        return userService.getUser(userId);
+    ApiResponse<UserResponse> getUser(@PathVariable String userId) {
+        ApiResponse apiResponse = new ApiResponse();
+
+        return apiResponse.<UserResponse>builder()
+                .code(200)
+                .message("Success")
+                .result(userService.getUser(userId))
+                .build();
     }
 
     @PutMapping("/{userId}")
-    UserResponse updateUser(@PathVariable String userId, @RequestBody UserUpdateRequest request) {
-        return userService.updateUser(userId, request);
+    ApiResponse<UserResponse> updateUser(@PathVariable String userId, @RequestBody @Valid UserUpdateRequest request) {
+        ApiResponse<UserResponse> apiResponse = new ApiResponse<>();
+
+        return apiResponse.<UserResponse>builder()
+                .code(200)
+                .message("Success")
+                .result(userService.updateUser(userId, request))
+                .build();
     }
 
     @DeleteMapping("/{userId}")
-    String deleteUser(@PathVariable String userId) {
+    ApiResponse<String> deleteUser(@PathVariable String userId) {
         userService.deleteUser(userId);
-        return "User has been deleted";
+
+        ApiResponse<String> apiResponse = new ApiResponse();
+
+        return apiResponse.<String>builder()
+                .code(204)
+                .message("User has been deleted!")
+                .build();
     }
 
 }
