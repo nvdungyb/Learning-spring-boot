@@ -4,6 +4,7 @@ import com.dzungyb.learning_spring_boot.dto.request.UserCreationRequest;
 import com.dzungyb.learning_spring_boot.dto.request.UserUpdateRequest;
 import com.dzungyb.learning_spring_boot.dto.response.UserResponse;
 import com.dzungyb.learning_spring_boot.entity.User;
+import com.dzungyb.learning_spring_boot.enums.Role;
 import com.dzungyb.learning_spring_boot.exception.AppException;
 import com.dzungyb.learning_spring_boot.exception.ErrorCode;
 import com.dzungyb.learning_spring_boot.mapper.UserMapper;
@@ -11,10 +12,12 @@ import com.dzungyb.learning_spring_boot.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.parsing.PassThroughSourceExtractor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,18 +27,22 @@ import java.util.stream.Collectors;
 public class UserService {
     UserRepository userRepository;
     UserMapper userMapper;
+    PasswordEncoder passwordEncoder;
 
-    public User createUser(UserCreationRequest request) {
+    public UserResponse createUser(UserCreationRequest request) {
         if (userRepository.existsByUserName(request.getUserName())) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
 
         User user = userMapper.toUser(request);
 
-        PasswordEncoder passwordEncode = new BCryptPasswordEncoder(10);
-        user.setPassword(passwordEncode.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        return userRepository.save(user);
+        HashSet<String> roles = new HashSet<>();
+        roles.add(Role.USER.name());
+        user.setRoles(roles);
+
+        return userMapper.toUserResponse(userRepository.save(user));
     }
 
     public List<UserResponse> getUsers() {
@@ -63,6 +70,8 @@ public class UserService {
     public UserResponse updateUser(String userId, UserUpdateRequest request) {
         User user = userRepository.findById(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         userMapper.updateUser(user, request);
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
