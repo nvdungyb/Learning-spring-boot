@@ -24,12 +24,8 @@ public class AuthenticationController {
 
         var result = authenticationService.authenticate(loginRequest);
 
-//        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
-//        authenticationResponse.setAuthenticated(isLogin);
-//        apiResponse.setResult(authenticationResponse);
-//        return apiResponse;
-
         return apiResponse.<AuthenticationResponse>builder()
+                .code(200)
                 .result(result)
                 .build();
     }
@@ -39,6 +35,7 @@ public class AuthenticationController {
         var result = authenticationService.introspect(request);
 
         return ApiResponse.<IntrospectResponse>builder()
+                .code(200)
                 .result(result)
                 .build();
     }

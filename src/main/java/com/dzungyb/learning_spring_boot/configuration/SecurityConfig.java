@@ -1,5 +1,6 @@
 package com.dzungyb.learning_spring_boot.configuration;
 
+import com.dzungyb.learning_spring_boot.enums.Role;
 import com.nimbusds.jose.JWSAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +10,8 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
@@ -36,7 +39,8 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(request ->
                 request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINT_POST).permitAll()
-                        .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINT_GET).permitAll()
+//                        .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINT_GET).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/users").hasAuthority("SCOPE_ADMIN")
 //                        .anyRequest().authenticated());
                         .anyRequest().permitAll());
 
@@ -57,6 +61,10 @@ public class SecurityConfig {
                 .build();
     }
 
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(10);
+    }
 
 }
 
